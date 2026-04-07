@@ -3,13 +3,18 @@ import { io } from 'socket.io-client';
 import toast, { Toaster } from 'react-hot-toast';
 import useAuthStore from '../store/authStore';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://srv-d7altk94tr6s739pkiag.onrender.com';
+const API_BASE_URL = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
+const socketUrl = API_BASE_URL || undefined;
 
 const NotificationListener = () => {
   const { user } = useAuthStore();
 
   useEffect(() => {
-    const socket = io(API_BASE_URL, { transports: ['websocket', 'polling'] });
+    const socket = io(socketUrl, {
+      transports: ['websocket', 'polling'],
+      reconnectionAttempts: 3,
+      timeout: 10000,
+    });
 
     socket.on('product_created', (product) => {
       toast.success(`Hype Drop: ${product.name} is now available! 🔥`, {

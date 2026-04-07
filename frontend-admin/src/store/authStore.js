@@ -1,7 +1,8 @@
 import { create } from 'zustand';
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://tshirt-vas3.onrender.com';
+const API_BASE_URL = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
+const apiUrl = (path) => (API_BASE_URL ? `${API_BASE_URL}${path}` : path);
 const savedToken = localStorage.getItem('token');
 
 if (savedToken) {
@@ -17,7 +18,7 @@ const useAuthStore = create((set) => ({
   login: async (email, password) => {
     set({ loading: true, error: null });
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/users/login`, { email, password });
+      const response = await axios.post(apiUrl('/api/users/login'), { email, password });
       const { token, ...user } = response.data;
       
       localStorage.setItem('token', token);
@@ -35,7 +36,7 @@ const useAuthStore = create((set) => ({
   register: async ({ name, email, password, role }) => {
     set({ loading: true, error: null });
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/users/register`, {
+      const response = await axios.post(apiUrl('/api/users/register'), {
         name,
         email,
         password,

@@ -5,7 +5,9 @@ import { io } from 'socket.io-client';
 import useAuthStore from '../store/authStore';
 import useCartStore from '../store/cartStore';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://tshirt-vas3.onrender.com';
+const API_BASE_URL = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
+const apiUrl = (path) => (API_BASE_URL ? `${API_BASE_URL}${path}` : path);
+const socketUrl = API_BASE_URL || undefined;
 
 const formatINR = (amount) =>
   new Intl.NumberFormat('en-IN', {
@@ -32,11 +34,15 @@ const Home = () => {
   });
 
   useEffect(() => {
-    const socket = io(API_BASE_URL, { transports: ['websocket', 'polling'] });
+    const socket = io(socketUrl, {
+      transports: ['websocket', 'polling'],
+      reconnectionAttempts: 3,
+      timeout: 10000,
+    });
 
     const fetchProducts = async () => {
       try {
-        const { data } = await axios.get(`${API_BASE_URL}/api/products`);
+        const { data } = await axios.get(apiUrl('/api/products'));
         setProducts(data);
         setLoading(false);
       } catch (error) {
@@ -47,7 +53,7 @@ const Home = () => {
 
     const refreshProducts = async () => {
       try {
-        const { data } = await axios.get(`${API_BASE_URL}/api/products`);
+        const { data } = await axios.get(apiUrl('/api/products'));
         setProducts(data);
       } catch (error) {
         console.error('Error refreshing products:', error);
@@ -101,7 +107,7 @@ const Home = () => {
         paymentMethod: 'Cash on Delivery',
       };
 
-      const { data } = await axios.post(`${API_BASE_URL}/api/orders`, payload);
+      const { data } = await axios.post(apiUrl('/api/orders'), payload);
       clearCart();
       setOrderSuccess(`Order placed successfully. Order ID: #${data._id.slice(-6).toUpperCase()}`);
     } catch (error) {
