@@ -124,9 +124,9 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex min-h-screen flex-col md:flex-row overflow-hidden">
       {/* Sidebar - Cyberpunk Neon */}
-      <div className="w-64 bg-surface border-r border-white/5 p-6 flex-col gap-8 hidden md:flex relative overflow-hidden">
+      <div className="w-full md:w-64 bg-surface border-r border-white/5 p-4 sm:p-6 flex-col gap-6 md:gap-8 hidden md:flex relative overflow-hidden">
         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-[80px] pointer-events-none" />
         <div className="flex items-center gap-3 relative z-10">
           <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center font-black text-black shadow-[0_0_15px_rgba(57,255,20,0.6)]">A</div>
@@ -148,7 +148,7 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <div className="flex-1 overflow-y-auto w-full">
-        <header className="h-20 bg-surface/80 backdrop-blur-xl border-b border-white/5 flex items-center justify-between px-8 sticky top-0 z-20">
+        <header className="bg-surface/80 backdrop-blur-xl border-b border-white/5 flex flex-wrap items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 py-4 sticky top-0 z-20">
            <h2 className="text-xl font-black italic tracking-wide text-white">SYSTEM <span className="text-primary">OVERVIEW</span></h2>
            <div className="flex items-center gap-4">
               <span className="text-xs font-bold uppercase tracking-widest text-[#39ff14] border border-[#39ff14]/30 bg-[#39ff14]/10 py-2 px-4 rounded-full shadow-[0_0_10px_rgba(57,255,20,0.2)]">
@@ -157,7 +157,7 @@ const Dashboard = () => {
            </div>
         </header>
         
-        <main className="p-8 max-w-7xl mx-auto">
+        <main className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full">
           {error && (
             <div className="mb-6 p-3 rounded-lg border border-red-500/20 bg-red-500/10 text-red-400 text-sm">
               {error}
@@ -166,7 +166,7 @@ const Dashboard = () => {
 
           {/* Stats Grid */}
           {activeTab === 'overview' && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8">
              <div className="bg-surface border-t-2 border-t-primary rounded-xl p-6 shadow-2xl relative overflow-hidden group hover:border-t-[4px] transition-all">
                 <div className="absolute -right-6 -top-6 w-24 h-24 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all duration-500"/>
                 <p className="text-textMuted text-xs font-black uppercase tracking-widest mb-2">Total Gross Volume</p>
@@ -240,13 +240,13 @@ const Dashboard = () => {
                   </div>
                 )}
 
-                <form onSubmit={createProduct} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <form onSubmit={createProduct} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <input value={productForm.title} onChange={(e) => handleProductChange('title', e.target.value)} placeholder="Product title" className="px-3 py-2 bg-background border border-white/10 rounded-lg" required />
                   <input value={productForm.price} onChange={(e) => handleProductChange('price', e.target.value)} type="number" step="0.01" placeholder="Price (INR)" className="px-3 py-2 bg-background border border-white/10 rounded-lg" required />
                   <input value={productForm.stock} onChange={(e) => handleProductChange('stock', e.target.value)} type="number" placeholder="Stock" className="px-3 py-2 bg-background border border-white/10 rounded-lg" required />
                   <input type="file" accept="image/*" onChange={(e) => handleProductChange('image', e.target.files?.[0] || null)} className="px-3 py-2 bg-background border border-white/10 rounded-lg" required />
-                  <textarea value={productForm.description} onChange={(e) => handleProductChange('description', e.target.value)} placeholder="Description" className="md:col-span-2 px-3 py-2 bg-background border border-white/10 rounded-lg min-h-28" required />
-                  <button type="submit" disabled={creatingProduct} className="md:col-span-2 btn-action disabled:opacity-50">
+                  <textarea value={productForm.description} onChange={(e) => handleProductChange('description', e.target.value)} placeholder="Description" className="sm:col-span-2 px-3 py-2 bg-background border border-white/10 rounded-lg min-h-28" required />
+                  <button type="submit" disabled={creatingProduct} className="sm:col-span-2 btn-action disabled:opacity-50">
                     {creatingProduct ? 'Creating Product...' : 'Create Product'}
                   </button>
                 </form>

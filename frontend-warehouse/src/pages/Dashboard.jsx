@@ -68,16 +68,16 @@ const Dashboard = () => {
    };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <header className="bg-surface/90 backdrop-blur-md border-b-2 border-b-primary shadow-[0_10px_30px_rgba(255,69,0,0.15)] px-8 py-5 flex justify-between items-center sticky top-0 z-20">
-        <div className="flex items-center gap-4 group">
+      <div className="min-h-screen flex flex-col bg-background">
+         <header className="bg-surface/90 backdrop-blur-md border-b-2 border-b-primary shadow-[0_10px_30px_rgba(255,69,0,0.15)] px-4 sm:px-6 lg:px-8 py-4 sm:py-5 flex flex-wrap justify-between items-center gap-4 sticky top-0 z-20">
+            <div className="flex items-center gap-3 sm:gap-4 group min-w-0">
            <div className="w-12 h-12 bg-primary/10 border-2 border-primary text-primary shadow-[0_0_15px_rgba(255,69,0,0.5)] group-hover:shadow-[0_0_25px_rgba(255,69,0,0.8)] rounded-lg flex items-center justify-center font-black text-2xl transition-all">W</div>
-           <h1 className="text-2xl font-black uppercase tracking-widest text-text flex flex-col leading-none">
+                <h1 className="text-xl sm:text-2xl font-black uppercase tracking-widest text-text flex flex-col leading-none min-w-0">
              Sector 7 <span className="text-primary text-sm tracking-[0.3em]">Logistics Hub</span>
            </h1>
         </div>
-        <div className="flex items-center gap-8 text-sm font-medium">
-           <span className="text-secondary flex items-center gap-2 border border-secondary/20 bg-secondary/10 px-3 py-1 rounded font-mono uppercase tracking-widest text-xs shadow-[0_0_10px_rgba(255,255,0,0.2)]">
+            <div className="flex flex-wrap items-center justify-end gap-3 sm:gap-4 md:gap-8 text-sm font-medium w-full sm:w-auto">
+                <span className="text-secondary flex items-center gap-2 border border-secondary/20 bg-secondary/10 px-3 py-1 rounded font-mono uppercase tracking-widest text-xs shadow-[0_0_10px_rgba(255,255,0,0.2)] max-w-full">
              <span className="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
              Operator: {user?.name || 'Facility'}
            </span>
@@ -88,38 +88,38 @@ const Dashboard = () => {
         </div>
       </header>
 
-      <main className="flex-1 p-8 container mx-auto max-w-6xl">
+      <main className="flex-1 p-4 sm:p-6 lg:p-8 container mx-auto max-w-6xl w-full">
             {error && (
                <div className="mb-6 p-3 rounded-lg border border-red-500/20 bg-red-500/10 text-red-400 text-sm">
                   {error}
                </div>
             )}
 
-        <div className="flex flex-col md:flex-row justify-between md:items-end mb-10 gap-6 border-b border-white/5 pb-6">
+            <div className="flex flex-col md:flex-row justify-between md:items-end mb-10 gap-4 sm:gap-6 border-b border-white/5 pb-6">
            <div>
-              <h2 className="text-4xl font-black uppercase tracking-tight text-white flex items-center gap-3">
+                     <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white flex items-center gap-3">
                 <svg className="w-8 h-8 text-secondary animate-slide-up" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                 Action Queue
               </h2>
               <p className="text-textMuted font-mono text-sm tracking-wide mt-2">SYS_MSG: Units pending authorization and dispatch.</p>
            </div>
            
-           <div className="bg-background border border-white/10 rounded-sm flex p-1 shadow-inner">
+                <div className="bg-background border border-white/10 rounded-sm flex p-1 shadow-inner w-full sm:w-auto">
              <button 
                onClick={() => setActiveTab('pending')}
-               className={`py-2 px-8 uppercase font-black text-xs tracking-widest transition-all ${activeTab === 'pending' ? 'bg-primary text-black shadow-[0_0_20px_rgba(255,69,0,0.5)]' : 'text-textMuted hover:text-white'}`}>
+                      className={`py-2 px-4 sm:px-8 uppercase font-black text-xs tracking-widest transition-all flex-1 sm:flex-none ${activeTab === 'pending' ? 'bg-primary text-black shadow-[0_0_20px_rgba(255,69,0,0.5)]' : 'text-textMuted hover:text-white'}`}>
                Req_Pack
              </button>
              <button 
                onClick={() => setActiveTab('shipped')}
-               className={`py-2 px-8 uppercase font-black text-xs tracking-widest transition-all ${activeTab === 'shipped' ? 'bg-secondary text-black shadow-[0_0_20px_rgba(255,255,0,0.5)]' : 'text-textMuted hover:text-white'}`}>
+                      className={`py-2 px-4 sm:px-8 uppercase font-black text-xs tracking-widest transition-all flex-1 sm:flex-none ${activeTab === 'shipped' ? 'bg-secondary text-black shadow-[0_0_20px_rgba(255,255,0,0.5)]' : 'text-textMuted hover:text-white'}`}>
                Dispatched
              </button>
            </div>
         </div>
 
         {/* Assigned Orders Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
                {!loading && filteredOrders.length === 0 && (
                   <div className="card p-6 lg:col-span-2">
                      <p className="text-textMuted">No orders available for this view yet.</p>
@@ -153,7 +153,7 @@ const Dashboard = () => {
                         </div>
                      </div>
 
-                     <div className="flex gap-4">
+                     <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                         {order.status !== 'packed' && order.status !== 'shipped' && order.status !== 'delivered' && (
                            <button
                               onClick={() => updateStatus(order._id, 'packed')}

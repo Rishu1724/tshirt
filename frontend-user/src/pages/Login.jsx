@@ -23,15 +23,15 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-vh-screen py-32 px-4 md:px-6 bg-background relative overflow-hidden">
+    <div className="flex items-center justify-center min-h-screen py-20 sm:py-24 md:py-32 px-4 sm:px-5 md:px-6 bg-background relative overflow-hidden">
       {/* Decorative Blur */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 blur-[120px] rounded-full pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="w-full max-w-4xl flex bg-surface rounded-3xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden relative z-10">
+      <div className="w-full max-w-4xl flex flex-col md:flex-row bg-surface rounded-3xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden relative z-10">
         
         {/* Left Side - Promotional Flipkart style */}
-        <div className="hidden md:flex flex-col justify-center w-2/5 bg-primary p-12 text-black relative overflow-hidden">
+        <div className="hidden md:flex flex-col justify-center w-full md:w-2/5 bg-primary p-12 text-black relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-secondary/30" />
           <div className="relative z-10">
             <h2 className="text-4xl font-black italic tracking-tighter mb-4 text-white">Looks.<br/>Loading.</h2>
@@ -41,8 +41,8 @@ const Login = () => {
         </div>
 
         {/* Right Side - Form */}
-        <div className="w-full md:w-3/5 p-8 md:p-12 relative bg-surface">
-          <h2 className="text-3xl font-black mb-2 tracking-tight text-white">Log in to Threadz</h2>
+        <div className="w-full md:w-3/5 p-6 sm:p-8 md:p-12 relative bg-surface">
+          <h2 className="text-2xl sm:text-3xl font-black mb-2 tracking-tight text-white">Log in to Threadz</h2>
           <p className="text-textMuted mb-8 text-sm">Enter your details below to continue.</p>
           
           {error && <div className="p-4 mb-6 bg-red-500/10 border-l-4 border-red-500 text-red-400 text-sm font-medium">{error}</div>}
@@ -53,7 +53,7 @@ const Login = () => {
                 type="email" 
                 value={email}
                 onChange={(e)=> setEmail(e.target.value)}
-                className="block w-full px-4 py-4 text-sm text-white bg-background border-b-2 border-white/10 focus:outline-none focus:border-primary peer rounded-t-lg transition-colors placeholder-transparent"
+                className="block w-full px-4 py-3 sm:py-4 text-sm text-white bg-background border-b-2 border-white/10 focus:outline-none focus:border-primary peer rounded-t-lg transition-colors placeholder-transparent"
                 placeholder="Email Address"
                 required 
               />
@@ -65,7 +65,7 @@ const Login = () => {
                 type="password" 
                 value={password}
                 onChange={(e)=> setPassword(e.target.value)}
-                className="block w-full px-4 py-4 text-sm text-white bg-background border-b-2 border-white/10 focus:outline-none focus:border-primary peer rounded-t-lg transition-colors placeholder-transparent"
+                className="block w-full px-4 py-3 sm:py-4 text-sm text-white bg-background border-b-2 border-white/10 focus:outline-none focus:border-primary peer rounded-t-lg transition-colors placeholder-transparent"
                 placeholder="Password"
                 required 
               />
@@ -79,7 +79,7 @@ const Login = () => {
             <button 
               type="submit" 
               disabled={loading}
-              className="w-full bg-primary text-white font-bold py-4 rounded hover:bg-blue-600 transition-colors mt-2 disabled:opacity-50 shadow-[0_8px_20px_rgba(40,116,240,0.3)] shadow-primary/30"
+              className="w-full bg-primary text-white font-bold py-3 sm:py-4 rounded hover:bg-blue-600 transition-colors mt-2 disabled:opacity-50 shadow-[0_8px_20px_rgba(40,116,240,0.3)] shadow-primary/30"
             >
               {loading ? 'Logging in...' : 'Login'}
             </button>

@@ -20,9 +20,9 @@ const Navbar = () => {
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-surface/90 backdrop-blur-xl border-b border-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.5)]' : 'bg-transparent py-4'}`}>
-      <div className="container mx-auto px-4 md:px-6 flex flex-wrap gap-4 justify-between items-center py-3">
+      <div className="container mx-auto px-4 sm:px-5 md:px-6 flex flex-wrap gap-3 sm:gap-4 justify-between items-center py-3">
         {/* Logo */}
-        <Link to="/" className="text-2xl font-black tracking-tighter flex items-center gap-2">
+        <Link to="/" className="text-lg sm:text-2xl font-black tracking-tighter flex items-center gap-2 shrink-0">
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center transform rotate-12">
              <span className="text-white text-xl transform -rotate-12">T</span>
           </div>
@@ -30,7 +30,7 @@ const Navbar = () => {
         </Link>
         
         {/* Search Bar - Flipkart Style */}
-        <div className="hidden lg:flex flex-1 max-w-2xl mx-8 relative group">
+        <div className="hidden lg:flex flex-1 max-w-2xl mx-6 relative group">
           <svg className="absolute left-4 top-1/2 -translate-y-1/2 text-textMuted w-5 h-5 group-focus-within:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
           <input 
             type="text" 
@@ -39,8 +39,19 @@ const Navbar = () => {
           />
         </div>
 
+        <div className="flex lg:hidden order-3 w-full">
+          <div className="relative group w-full">
+            <svg className="absolute left-4 top-1/2 -translate-y-1/2 text-textMuted w-5 h-5 group-focus-within:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <input
+              type="text"
+              placeholder="Search products..."
+              className="w-full bg-background/50 border border-white/10 group-focus-within:border-primary/50 group-focus-within:bg-background rounded-xl py-2.5 pl-12 pr-4 text-sm text-text outline-none transition-all duration-300 shadow-inner"
+            />
+          </div>
+        </div>
+
         {/* Right Actions */}
-        <div className="flex items-center gap-6 font-medium">
+        <div className="flex flex-wrap items-center justify-end gap-3 sm:gap-4 md:gap-6 font-medium ml-auto">
           <Link to="/" className="hidden md:flex items-center gap-2 text-text hover:text-primary transition-colors text-sm">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
             Collections

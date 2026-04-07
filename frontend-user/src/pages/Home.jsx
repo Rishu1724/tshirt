@@ -120,9 +120,9 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Category Nav - Flipkart Signature */}
-      <div className="pt-24 pb-4 border-b border-white/5 bg-background shadow-sm">
-        <div className="container mx-auto px-6 overflow-x-auto no-scrollbar">
-          <div className="flex items-center gap-8 min-w-max text-sm font-semibold">
+      <div className="pt-28 sm:pt-24 pb-4 border-b border-white/5 bg-background shadow-sm">
+        <div className="container mx-auto px-4 sm:px-6 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-4 sm:gap-6 md:gap-8 min-w-max text-sm font-semibold">
             {['Top Offers', 'Mobiles & Tablets', 'Electronics', 'TVs & Appliances', 'Fashion', 'Beauty', 'Home & Kitchen', 'Furniture', 'Travel', 'Grocery'].map((cat, i) => (
               <div key={i} className="flex flex-col items-center gap-2 cursor-pointer group">
                 <div className="w-16 h-16 rounded-full bg-surface border border-white/5 flex items-center justify-center group-hover:border-primary group-hover:shadow-[0_0_15px_rgba(40,116,240,0.5)] transition-all">
@@ -136,25 +136,25 @@ const Home = () => {
       </div>
 
       {/* Hero Banner - Gen Z Animated */}
-      <section className="relative px-4 md:px-6 py-8">
+      <section className="relative px-4 sm:px-5 md:px-6 py-8">
         <div className="container mx-auto">
-          <div className="w-full rounded-3xl overflow-hidden relative bg-gradient-to-r from-primary/80 to-secondary/80 h-[300px] md:h-[400px] flex items-center shadow-[0_0_40px_rgba(40,116,240,0.2)] border border-white/10 group">
+          <div className="w-full rounded-3xl overflow-hidden relative bg-gradient-to-r from-primary/80 to-secondary/80 h-[320px] sm:h-[360px] md:h-[400px] flex items-center shadow-[0_0_40px_rgba(40,116,240,0.2)] border border-white/10 group">
              {/* Abstract Shapes */}
              <div className="absolute top-0 right-0 w-64 h-64 bg-secondary blur-[100px] rounded-full opacity-50 mix-blend-screen animate-pulse" />
              <div className="absolute bottom-0 left-10 w-48 h-48 bg-primary blur-[80px] rounded-full opacity-60 mix-blend-screen duration-700" />
              
-             <div className="relative z-10 px-10 md:px-20 animate-slide-up">
+             <div className="relative z-10 px-6 sm:px-10 md:px-20 animate-slide-up max-w-2xl">
                 <span className="bg-black/40 text-secondary border border-secondary/50 px-3 py-1 text-xs font-black uppercase tracking-widest rounded-sm backdrop-blur-md mb-4 inline-block">
                   Big Billion Day Drop
                 </span>
-                <h1 className="text-4xl md:text-6xl font-black text-white italic tracking-tighter mb-4 leading-none">
+                <h1 className="text-3xl sm:text-4xl md:text-6xl font-black text-white italic tracking-tighter mb-4 leading-none">
                   FLEX YOUR <br /> AESTHETIC.
                 </h1>
                 <p className="text-white/80 font-medium max-w-sm mb-8">
                   Get up to 80% off on premium threads. Upgrade your street cred.
                 </p>
-                <button className="bg-white text-background px-8 py-3 rounded-xl font-bold hover:bg-secondary hover:text-black hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                  COP NOW
+                <button className="bg-white text-background px-6 sm:px-8 py-3 rounded-xl font-bold hover:bg-secondary hover:text-black hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                  SHOP NOW
                 </button>
              </div>
           </div>
@@ -162,16 +162,16 @@ const Home = () => {
       </section>
 
       {/* Products Grid */}
-      <section className="py-12 px-4 md:px-6 container mx-auto">
-        <div className="flex justify-between items-center bg-surface/50 p-6 rounded-t-2xl border-b border-primary/20 backdrop-blur-md shadow-lg">
-          <div className="flex items-center gap-3">
-            <h2 className="text-2xl font-black italic tracking-tight">Deals of the Day</h2>
+      <section className="py-12 px-4 sm:px-5 md:px-6 container mx-auto">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 bg-surface/50 p-4 sm:p-6 rounded-t-2xl border-b border-primary/20 backdrop-blur-md shadow-lg">
+          <div className="flex items-center gap-3 flex-wrap">
+            <h2 className="text-xl sm:text-2xl font-black italic tracking-tight">Deals of the Day</h2>
             <span className="bg-primary px-2 py-0.5 rounded text-xs font-bold text-white flex items-center gap-1 animate-pulse">
               <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.984 3.984 0 01-3.143-1.59zM10 2a1 1 0 00-1 1v1.323L5.046 5.905 3.447 5.1A1 1 0 002.553 6.89l1.233.616-1.738 5.42a1 1 0 00.285 1.05A3.989 3.989 0 005 15a3.984 3.984 0 003.143-1.59h3.714" /></svg>
               LIVE
             </span>
           </div>
-          <button className="bg-primary/20 text-primary border border-primary/30 px-4 py-2 rounded-full text-sm font-bold hover:bg-primary hover:text-white transition-colors flex items-center gap-2 group shadow-[0_0_15px_rgba(40,116,240,0.3)]">
+          <button className="bg-primary/20 text-primary border border-primary/30 px-4 py-2 rounded-full text-sm font-bold hover:bg-primary hover:text-white transition-colors flex items-center gap-2 group shadow-[0_0_15px_rgba(40,116,240,0.3)] w-full sm:w-auto justify-center">
             VIEW ALL
             <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7"></path></svg>
           </button>
@@ -182,10 +182,10 @@ const Home = () => {
               <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
             </div>
         ) : (
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 bg-surface/30 p-6 rounded-b-2xl border border-t-0 border-white/5 backdrop-blur-md">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 bg-surface/30 p-4 sm:p-6 rounded-b-2xl border border-t-0 border-white/5 backdrop-blur-md">
             {products.map((product) => (
               <div key={product._id} className="bg-background border border-white/5 rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(40,116,240,0.15)] group flex flex-col">
-                <div className="relative h-48 md:h-64 overflow-hidden bg-white/5 p-4 flex items-center justify-center">
+                <div className="relative h-44 sm:h-48 md:h-64 overflow-hidden bg-white/5 p-4 flex items-center justify-center">
                   <img 
                     src={product.imageUrl} 
                     alt={product.title}
@@ -233,9 +233,9 @@ const Home = () => {
 
       {isOpen && (
         <div className="fixed inset-0 z-[70] bg-black/60 backdrop-blur-sm flex justify-end">
-          <div className="w-full max-w-md h-full bg-surface border-l border-white/10 p-6 overflow-y-auto">
+          <div className="w-full max-w-full sm:max-w-md h-full bg-surface border-l border-white/10 p-4 sm:p-6 overflow-y-auto">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-bold">Your Cart</h3>
+              <h3 className="text-xl sm:text-2xl font-bold">Your Cart</h3>
               <button onClick={closeCart} className="text-textMuted hover:text-white">Close</button>
             </div>
 
@@ -260,7 +260,7 @@ const Home = () => {
                     <div className="flex gap-3">
                       <img src={item.product.imageUrl} alt={item.product.title} className="w-16 h-16 object-cover rounded-lg" />
                       <div className="flex-1">
-                        <p className="font-semibold line-clamp-1">{item.product.title}</p>
+                        <p className="font-semibold line-clamp-1 text-sm sm:text-base">{item.product.title}</p>
                         <p className="text-textMuted text-sm">{formatINR(item.product.price)}</p>
                         <div className="mt-2 flex items-center gap-2">
                           <input
@@ -289,7 +289,7 @@ const Home = () => {
               <h4 className="font-semibold">Shipping Address</h4>
               <input value={shipping.street} onChange={(e) => handleShippingChange('street', e.target.value)} placeholder="Street" className="w-full px-3 py-2 bg-background border border-white/10 rounded-lg" />
               <input value={shipping.city} onChange={(e) => handleShippingChange('city', e.target.value)} placeholder="City" className="w-full px-3 py-2 bg-background border border-white/10 rounded-lg" />
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <input value={shipping.state} onChange={(e) => handleShippingChange('state', e.target.value)} placeholder="State" className="w-full px-3 py-2 bg-background border border-white/10 rounded-lg" />
                 <input value={shipping.zip} onChange={(e) => handleShippingChange('zip', e.target.value)} placeholder="ZIP" className="w-full px-3 py-2 bg-background border border-white/10 rounded-lg" />
               </div>
