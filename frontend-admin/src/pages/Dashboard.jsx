@@ -2,7 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import useAuthStore from '../store/authStore';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://tshirt-vas3.onrender.com';
+const API_BASE_URL = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
+const apiUrl = (path) => (API_BASE_URL ? `${API_BASE_URL}${path}` : path);
 
 const statusClassMap = {
   pending: 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20',
@@ -43,9 +44,9 @@ const Dashboard = () => {
 
     try {
       const [ordersRes, productsRes, usersRes] = await Promise.all([
-        axios.get(`${API_BASE_URL}/api/orders`),
-        axios.get(`${API_BASE_URL}/api/products`),
-        axios.get(`${API_BASE_URL}/api/users`),
+        axios.get(apiUrl('/api/orders')),
+        axios.get(apiUrl('/api/products')),
+        axios.get(apiUrl('/api/users')),
       ]);
 
       setOrders(ordersRes.data || []);
@@ -98,11 +99,11 @@ const Dashboard = () => {
       const uploadForm = new FormData();
       uploadForm.append('image', productForm.image);
 
-      const uploadRes = await axios.post(`${API_BASE_URL}/api/products/upload`, uploadForm, {
+      const uploadRes = await axios.post(apiUrl('/api/products/upload'), uploadForm, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
-      await axios.post(`${API_BASE_URL}/api/products`, {
+      await axios.post(apiUrl('/api/products'), {
         title: productForm.title,
         description: productForm.description,
         price: Number(productForm.price),

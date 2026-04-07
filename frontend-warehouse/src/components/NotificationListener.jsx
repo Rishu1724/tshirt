@@ -3,7 +3,8 @@ import { io } from 'socket.io-client';
 import toast, { Toaster } from 'react-hot-toast';
 import useAuthStore from '../store/authStore';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://srv-d7altk94tr6s739pkiag.onrender.com';
+const API_BASE_URL = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
+const socketUrl = API_BASE_URL || undefined;
 
 const NotificationListener = () => {
   const { user } = useAuthStore();
@@ -12,7 +13,11 @@ const NotificationListener = () => {
     // Only listen if user is logged in as warehouse staff
     if (!user || user.role !== 'warehouse') return;
 
-    const socket = io(API_BASE_URL, { transports: ['websocket', 'polling'] });
+    const socket = io(socketUrl, {
+      transports: ['websocket', 'polling'],
+      reconnectionAttempts: 3,
+      timeout: 10000,
+    });
 
     socket.on('new_order', (order) => {
       toast(`ACTION REQ: Order #${order._id.slice(-6).toUpperCase()} added to packing queue.`, {

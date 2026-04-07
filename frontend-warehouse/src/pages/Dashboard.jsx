@@ -2,7 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import useAuthStore from '../store/authStore';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://tshirt-vas3.onrender.com';
+const API_BASE_URL = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
+const apiUrl = (path) => (API_BASE_URL ? `${API_BASE_URL}${path}` : path);
 
 const statusClassMap = {
    pending: 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20',
@@ -24,7 +25,7 @@ const Dashboard = () => {
       setLoading(true);
       setError('');
       try {
-         const { data } = await axios.get(`${API_BASE_URL}/api/orders`);
+         const { data } = await axios.get(apiUrl('/api/orders'));
          setOrders(data || []);
       } catch (err) {
          setError(err.response?.data?.message || 'Failed to load orders');
@@ -52,7 +53,7 @@ const Dashboard = () => {
    const updateStatus = async (orderId, nextStatus) => {
       try {
          setUpdatingOrderId(orderId);
-         await axios.put(`${API_BASE_URL}/api/orders/${orderId}/status`, { status: nextStatus });
+         await axios.put(apiUrl(`/api/orders/${orderId}/status`), { status: nextStatus });
          await fetchOrders();
       } catch (err) {
          setError(err.response?.data?.message || 'Failed to update order status');
