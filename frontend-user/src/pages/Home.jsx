@@ -5,7 +5,7 @@ import { io } from 'socket.io-client';
 import useAuthStore from '../store/authStore';
 import useCartStore from '../store/cartStore';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://tshirt-vas3.onrender.com';
 
 const formatINR = (amount) =>
   new Intl.NumberFormat('en-IN', {
@@ -56,8 +56,10 @@ const Home = () => {
 
     socket.on('product_created', refreshProducts);
     fetchProducts();
+    const refreshInterval = setInterval(refreshProducts, 15000);
 
     return () => {
+      clearInterval(refreshInterval);
       socket.off('product_created', refreshProducts);
       socket.disconnect();
     };
@@ -111,75 +113,111 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="relative px-6 py-20 lg:py-32 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-primary/20 blur-[120px] rounded-full pointer-events-none" />
-        
-        <div className="container mx-auto text-center max-w-4xl relative z-10 animate-slide-up">
-          <span className="inline-block py-1 px-3 rounded-full bg-surface border border-white/10 text-primary text-sm font-semibold mb-6">
-            New Summer Collection
-          </span>
-          <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight tracking-tight">
-            Elevate Your <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-500">Everyday Style.</span>
-          </h1>
-          <p className="text-textMuted text-lg md:text-xl mb-12 max-w-2xl mx-auto">
-            Premium quality t-shirts designed for comfort, crafted for expression. Redefining modern streetwear aesthetics.
-          </p>
-          <div className="flex items-center justify-center gap-4">
-            <button className="btn-primary">Shop Collection</button>
-            <button className="py-3 px-6 rounded-xl font-medium text-white hover:bg-white/5 transition-colors border border-white/10 shadow-lg shadow-black/20">
-              View Lookbook
-            </button>
+      {/* Category Nav - Flipkart Signature */}
+      <div className="pt-24 pb-4 border-b border-white/5 bg-background shadow-sm">
+        <div className="container mx-auto px-6 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-8 min-w-max text-sm font-semibold">
+            {['Top Offers', 'Mobiles & Tablets', 'Electronics', 'TVs & Appliances', 'Fashion', 'Beauty', 'Home & Kitchen', 'Furniture', 'Travel', 'Grocery'].map((cat, i) => (
+              <div key={i} className="flex flex-col items-center gap-2 cursor-pointer group">
+                <div className="w-16 h-16 rounded-full bg-surface border border-white/5 flex items-center justify-center group-hover:border-primary group-hover:shadow-[0_0_15px_rgba(40,116,240,0.5)] transition-all">
+                   <span className="text-xl">👕</span>
+                </div>
+                <span className="text-textMuted group-hover:text-primary transition-colors">{cat}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Hero Banner - Gen Z Animated */}
+      <section className="relative px-4 md:px-6 py-8">
+        <div className="container mx-auto">
+          <div className="w-full rounded-3xl overflow-hidden relative bg-gradient-to-r from-primary/80 to-secondary/80 h-[300px] md:h-[400px] flex items-center shadow-[0_0_40px_rgba(40,116,240,0.2)] border border-white/10 group">
+             {/* Abstract Shapes */}
+             <div className="absolute top-0 right-0 w-64 h-64 bg-secondary blur-[100px] rounded-full opacity-50 mix-blend-screen animate-pulse" />
+             <div className="absolute bottom-0 left-10 w-48 h-48 bg-primary blur-[80px] rounded-full opacity-60 mix-blend-screen duration-700" />
+             
+             <div className="relative z-10 px-10 md:px-20 animate-slide-up">
+                <span className="bg-black/40 text-secondary border border-secondary/50 px-3 py-1 text-xs font-black uppercase tracking-widest rounded-sm backdrop-blur-md mb-4 inline-block">
+                  Big Billion Day Drop
+                </span>
+                <h1 className="text-4xl md:text-6xl font-black text-white italic tracking-tighter mb-4 leading-none">
+                  FLEX YOUR <br /> AESTHETIC.
+                </h1>
+                <p className="text-white/80 font-medium max-w-sm mb-8">
+                  Get up to 80% off on premium threads. Upgrade your street cred.
+                </p>
+                <button className="bg-white text-background px-8 py-3 rounded-xl font-bold hover:bg-secondary hover:text-black hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                  COP NOW
+                </button>
+             </div>
           </div>
         </div>
       </section>
 
       {/* Products Grid */}
-      <section className="py-20 px-6 container mx-auto">
-        <div className="flex justify-between items-end mb-12">
-          <div>
-            <h2 className="text-3xl font-bold mb-2">Live Store Threads</h2>
-            <p className="text-textMuted">Products fetched directly from MongoDB Database!</p>
+      <section className="py-12 px-4 md:px-6 container mx-auto">
+        <div className="flex justify-between items-center bg-surface/50 p-6 rounded-t-2xl border-b border-primary/20 backdrop-blur-md shadow-lg">
+          <div className="flex items-center gap-3">
+            <h2 className="text-2xl font-black italic tracking-tight">Deals of the Day</h2>
+            <span className="bg-primary px-2 py-0.5 rounded text-xs font-bold text-white flex items-center gap-1 animate-pulse">
+              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.984 3.984 0 01-3.143-1.59zM10 2a1 1 0 00-1 1v1.323L5.046 5.905 3.447 5.1A1 1 0 002.553 6.89l1.233.616-1.738 5.42a1 1 0 00.285 1.05A3.989 3.989 0 005 15a3.984 3.984 0 003.143-1.59h3.714" /></svg>
+              LIVE
+            </span>
           </div>
-          <button className="text-textMuted hover:text-white transition-colors flex items-center gap-2 group">
-            View All 
-            <span className="group-hover:translate-x-1 transition-transform">→</span>
+          <button className="bg-primary/20 text-primary border border-primary/30 px-4 py-2 rounded-full text-sm font-bold hover:bg-primary hover:text-white transition-colors flex items-center gap-2 group shadow-[0_0_15px_rgba(40,116,240,0.3)]">
+            VIEW ALL
+            <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7"></path></svg>
           </button>
         </div>
 
         {loading ? (
-            <div className="flex justify-center items-center py-20">
+            <div className="flex justify-center items-center py-20 bg-surface/30 rounded-b-2xl backdrop-blur-md">
               <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
             </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 bg-surface/30 p-6 rounded-b-2xl border border-t-0 border-white/5 backdrop-blur-md">
             {products.map((product) => (
-              <div key={product._id} className="card group cursor-pointer animate-fade-in flex flex-col">
-                <div className="relative h-72 overflow-hidden rounded-t-3xl bg-surface">
+              <div key={product._id} className="bg-background border border-white/5 rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(40,116,240,0.15)] group flex flex-col">
+                <div className="relative h-48 md:h-64 overflow-hidden bg-white/5 p-4 flex items-center justify-center">
                   <img 
                     src={product.imageUrl} 
                     alt={product.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110 drop-shadow-2xl"
                   />
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-surface/90 backdrop-blur-md text-xs font-bold px-3 py-1.5 rounded-lg border border-white/10 shadow-lg text-primary">
-                        Stock: {product.stock}
-                    </span>
+                  <div className="absolute top-3 left-3">
+                    {product.stock < 10 && (
+                       <span className="bg-secondary text-black text-[10px] font-black px-2 py-1 rounded-sm uppercase tracking-wider shadow-[0_0_10px_rgba(255,225,27,0.5)]">
+                          Only {product.stock} Left
+                       </span>
+                    )}
                   </div>
-                  <div className="absolute inset-x-0 bottom-0 p-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                    <button
-                      onClick={() => addItem(product)}
-                      className="w-full btn-primary py-3 rounded-xl shadow-lg border border-white/20"
-                    >
-                      Quick Add to Cart
-                    </button>
-                  </div>
+                  <button className="absolute top-3 right-3 w-8 h-8 rounded-full bg-background border border-white/10 flex items-center justify-center text-textMuted hover:text-secondary hover:border-secondary transition-colors">
+                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd"></path></svg>
+                  </button>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-bold mb-1 group-hover:text-primary transition-colors line-clamp-1">{product.title}</h3>
-                  <p className="text-textMuted font-medium text-lg mb-2">{formatINR(product.price)}</p>
-                  <p className="text-sm text-textMuted line-clamp-2">{product.description}</p>
+                <div className="p-4 md:p-5 flex-1 flex flex-col">
+                  <h3 className="text-sm md:text-base font-semibold mb-1 group-hover:text-primary transition-colors line-clamp-2 text-text/90 leading-tight">
+                    {product.title}
+                  </h3>
+                  <div className="flex items-center gap-2 mb-2 mt-auto">
+                    <span className="bg-green-500/20 text-green-400 text-xs px-1.5 py-0.5 rounded flex items-center gap-1 font-bold">
+                       4.8 <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    </span>
+                    <span className="text-xs text-textMuted">(1,245)</span>
+                    <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/fa_62673a.png" alt="FAssured" className="h-4 ml-auto" />
+                  </div>
+                  <div className="flex items-baseline gap-2 mb-4">
+                    <span className="text-lg md:text-xl font-bold text-white">{formatINR(product.price)}</span>
+                    <span className="text-sm text-textMuted line-through">{formatINR(product.price * 1.4)}</span>
+                    <span className="text-xs font-bold text-green-400">28% off</span>
+                  </div>
+                  <button
+                    onClick={() => addItem(product)}
+                    className="w-full btn-primary py-2.5 rounded-lg text-sm bg-primary/10 border border-primary text-primary hover:bg-primary hover:text-white shadow-none hover:shadow-[0_0_20px_rgba(40,116,240,0.4)]"
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             ))}

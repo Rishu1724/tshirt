@@ -4,6 +4,7 @@ import useAuthStore from './store/authStore';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import NotificationListener from './components/NotificationListener';
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuthStore();
@@ -17,6 +18,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="font-sans min-h-screen bg-background text-text">
+        <NotificationListener />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

@@ -7,12 +7,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#0f172a',
-        surface: '#1e293b',
-        primary: '#3b82f6',
-        secondary: '#f43f5e',
-        text: '#f8fafc',
-        textMuted: '#94a3b8',
+        background: '#0a0a0a',
+        surface: '#171717',
+        primary: '#2874f0', // Flipkart Blue
+        secondary: '#ffe11b', // Flipkart Yellow
+        text: '#ffffff',
+        textMuted: '#a3a3a3',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

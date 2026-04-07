@@ -35,72 +35,82 @@ const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-background">
-      <div className="w-full max-w-md p-8 bg-surface rounded-2xl border border-primary/20 shadow-[0_0_50px_rgba(16,185,129,0.1)]">
-        <h2 className="text-3xl font-bold text-center text-primary mb-8">Create Admin Account</h2>
+    <div className="flex items-center justify-center min-h-screen bg-background relative overflow-hidden">
+      {/* Decorative Blur */}
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-secondary/10 blur-[150px] rounded-full pointer-events-none" />
+
+      <div className="w-full max-w-md p-10 bg-surface rounded-[2rem] border border-white/5 shadow-[0_0_50px_rgba(57,255,20,0.15)] relative z-10 backdrop-blur-xl group">
+        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50 group-hover:opacity-100 transition-opacity" />
+        <h2 className="text-3xl font-black text-center text-white mb-2 tracking-widest uppercase">Admin<span className="text-secondary italic">.Init</span></h2>
+        <p className="text-center text-textMuted text-xs font-bold uppercase tracking-[0.2em] mb-8">Provision New Admin</p>
 
         {(error || localError) && (
-          <div className="p-3 mb-6 bg-red-500/20 text-red-400 rounded-lg text-center text-sm">
+          <div className="p-4 mb-6 bg-red-500/10 border-l-4 border-red-500 text-red-400 text-sm font-medium">
             {localError || error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div>
-            <label className="block text-sm font-medium text-textMuted mb-2">Name</label>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <div className="relative group/input">
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full bg-background border border-primary/20 rounded-xl px-4 py-3 text-text focus:outline-none focus:border-primary transition-colors"
+              className="w-full bg-background/50 border border-white/5 rounded-xl px-4 py-4 text-sm text-white focus:outline-none focus:border-primary transition-all focus:bg-background placeholder-transparent peer"
+              placeholder="Full Name"
               required
             />
+             <label className="absolute text-xs font-bold uppercase tracking-widest text-textMuted duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-primary">Full Name</label>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-textMuted mb-2">Email</label>
+          <div className="relative group/input">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-background border border-primary/20 rounded-xl px-4 py-3 text-text focus:outline-none focus:border-primary transition-colors"
+              className="w-full bg-background/50 border border-white/5 rounded-xl px-4 py-4 text-sm text-white focus:outline-none focus:border-primary transition-all focus:bg-background placeholder-transparent peer"
+              placeholder="Email Address"
               required
             />
+             <label className="absolute text-xs font-bold uppercase tracking-widest text-textMuted duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-primary">Email Address</label>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-textMuted mb-2">Password</label>
+          <div className="relative group/input">
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-background border border-primary/20 rounded-xl px-4 py-3 text-text focus:outline-none focus:border-primary transition-colors"
+              className="w-full bg-background/50 border border-white/5 rounded-xl px-4 py-4 text-sm text-white focus:outline-none focus:border-primary transition-all focus:bg-background placeholder-transparent peer"
+              placeholder="Password"
               required
             />
+             <label className="absolute text-xs font-bold uppercase tracking-widest text-textMuted duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-primary">Password</label>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-textMuted mb-2">Confirm Password</label>
+          <div className="relative group/input">
             <input
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full bg-background border border-primary/20 rounded-xl px-4 py-3 text-text focus:outline-none focus:border-primary transition-colors"
+              className="w-full bg-background/50 border border-white/5 rounded-xl px-4 py-4 text-sm text-white focus:outline-none focus:border-primary transition-all focus:bg-background placeholder-transparent peer"
+              placeholder="Confirm Password"
               required
             />
+             <label className="absolute text-xs font-bold uppercase tracking-widest text-textMuted duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:text-primary">Confirm Password</label>
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-primary text-background font-bold py-3 rounded-xl hover:bg-emerald-400 transition-colors shadow-[0_0_20px_rgba(16,185,129,0.2)] disabled:opacity-50 mt-2"
+            className="w-full bg-primary/10 border border-primary text-primary font-black uppercase tracking-widest py-4 rounded-xl hover:bg-primary hover:text-black transition-all shadow-[0_0_20px_rgba(57,255,20,0.1)] hover:shadow-[0_0_30px_rgba(57,255,20,0.4)] disabled:opacity-50 mt-4 relative overflow-hidden"
           >
-            {loading ? 'Creating...' : 'Create Admin Account'}
+            {loading ? 'Initializing...' : 'Create Admin Root'}
           </button>
         </form>
 
-        <p className="text-center mt-6 text-sm text-textMuted">
-          Already have an account? <Link to="/login" className="text-primary hover:underline">Login</Link>
+        <p className="text-center mt-8 text-xs text-textMuted uppercase font-bold tracking-widest">
+          Have System Auth? <Link to="/login" className="text-secondary hover:text-primary transition-colors hover:shadow-[0_0_10px_currentColor]">Login</Link>
         </p>
       </div>
     </div>

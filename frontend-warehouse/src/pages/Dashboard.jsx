@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import useAuthStore from '../store/authStore';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://tshirt-vas3.onrender.com';
 
 const statusClassMap = {
    pending: 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20',
@@ -68,20 +68,21 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <header className="bg-surface border-b border-orange-500/20 px-8 py-5 flex justify-between items-center sticky top-0 z-10 shadow-lg">
-        <div className="flex items-center gap-4">
-           <div className="w-10 h-10 bg-primary/20 border border-primary/50 text-primary rounded-xl flex items-center justify-center font-bold text-xl">W</div>
-           <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-yellow-300">
-             Logistics Panel
+      <header className="bg-surface/90 backdrop-blur-md border-b-2 border-b-primary shadow-[0_10px_30px_rgba(255,69,0,0.15)] px-8 py-5 flex justify-between items-center sticky top-0 z-20">
+        <div className="flex items-center gap-4 group">
+           <div className="w-12 h-12 bg-primary/10 border-2 border-primary text-primary shadow-[0_0_15px_rgba(255,69,0,0.5)] group-hover:shadow-[0_0_25px_rgba(255,69,0,0.8)] rounded-lg flex items-center justify-center font-black text-2xl transition-all">W</div>
+           <h1 className="text-2xl font-black uppercase tracking-widest text-text flex flex-col leading-none">
+             Sector 7 <span className="text-primary text-sm tracking-[0.3em]">Logistics Hub</span>
            </h1>
         </div>
-        <div className="flex items-center gap-6 text-sm font-medium">
-           <span className="text-textMuted flex items-center gap-2">
-             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-             {user?.name || 'Facility'}
+        <div className="flex items-center gap-8 text-sm font-medium">
+           <span className="text-secondary flex items-center gap-2 border border-secondary/20 bg-secondary/10 px-3 py-1 rounded font-mono uppercase tracking-widest text-xs shadow-[0_0_10px_rgba(255,255,0,0.2)]">
+             <span className="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+             Operator: {user?.name || 'Facility'}
            </span>
-           <button onClick={logout} className="bg-slate-800 border border-slate-700 py-2 px-4 rounded-lg hover:bg-slate-700 transition-colors">
-             Log Out
+           <button onClick={logout} className="relative overflow-hidden group border border-red-500 text-red-500 font-black uppercase text-xs tracking-widest py-2 px-6 hover:text-white transition-colors">
+             <span className="relative z-10">Abort Session</span>
+             <div className="absolute inset-0 h-full w-full bg-red-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
            </button>
         </div>
       </header>
@@ -93,21 +94,24 @@ const Dashboard = () => {
                </div>
             )}
 
-        <div className="flex justify-between items-end mb-8">
+        <div className="flex flex-col md:flex-row justify-between md:items-end mb-10 gap-6 border-b border-white/5 pb-6">
            <div>
-              <h2 className="text-3xl font-bold mb-2">Order Queue</h2>
-              <p className="text-textMuted">Orders assigned to this facility for packing and dispatch</p>
+              <h2 className="text-4xl font-black uppercase tracking-tight text-white flex items-center gap-3">
+                <svg className="w-8 h-8 text-secondary animate-slide-up" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                Action Queue
+              </h2>
+              <p className="text-textMuted font-mono text-sm tracking-wide mt-2">SYS_MSG: Units pending authorization and dispatch.</p>
            </div>
            
-           <div className="bg-surface border border-slate-700 rounded-lg flex p-1">
+           <div className="bg-background border border-white/10 rounded-sm flex p-1 shadow-inner">
              <button 
                onClick={() => setActiveTab('pending')}
-               className={`py-2 px-6 rounded-md font-medium text-sm transition-all ${activeTab === 'pending' ? 'bg-primary text-slate-900 shadow-md' : 'text-textMuted hover:text-white'}`}>
-               Pending Packing
+               className={`py-2 px-8 uppercase font-black text-xs tracking-widest transition-all ${activeTab === 'pending' ? 'bg-primary text-black shadow-[0_0_20px_rgba(255,69,0,0.5)]' : 'text-textMuted hover:text-white'}`}>
+               Req_Pack
              </button>
              <button 
                onClick={() => setActiveTab('shipped')}
-               className={`py-2 px-6 rounded-md font-medium text-sm transition-all ${activeTab === 'shipped' ? 'bg-primary text-slate-900 shadow-md' : 'text-textMuted hover:text-white'}`}>
+               className={`py-2 px-8 uppercase font-black text-xs tracking-widest transition-all ${activeTab === 'shipped' ? 'bg-secondary text-black shadow-[0_0_20px_rgba(255,255,0,0.5)]' : 'text-textMuted hover:text-white'}`}>
                Dispatched
              </button>
            </div>

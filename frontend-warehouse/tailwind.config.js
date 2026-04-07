@@ -7,11 +7,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#0f172a',
-        surface: '#1e293b',
-        primary: '#f59e0b',
-        text: '#f8fafc',
-        textMuted: '#94a3b8',
+        background: '#050505',
+        surface: '#111111',
+        primary: '#ff4500', // Neon Orange Action
+        secondary: '#ffff00', // Neon Caution Yellow
+        text: '#ffffff',
+        textMuted: '#888888',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

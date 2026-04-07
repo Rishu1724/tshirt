@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import useAuthStore from '../store/authStore';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://tshirt-vas3.onrender.com';
 
 const statusClassMap = {
   pending: 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20',
@@ -124,32 +124,35 @@ const Dashboard = () => {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      {/* Sidebar */}
-      <div className="w-64 bg-surface border-r border-slate-800 p-6 flex flex-col gap-8 hidden md:flex">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center font-bold text-background shadow-lg shadow-primary/30">A</div>
-          <span className="font-bold text-xl text-white">Admin Panel</span>
+      {/* Sidebar - Cyberpunk Neon */}
+      <div className="w-64 bg-surface border-r border-white/5 p-6 flex-col gap-8 hidden md:flex relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-[80px] pointer-events-none" />
+        <div className="flex items-center gap-3 relative z-10">
+          <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center font-black text-black shadow-[0_0_15px_rgba(57,255,20,0.6)]">A</div>
+          <span className="font-black text-xl text-white tracking-widest uppercase">Admin</span>
         </div>
-        <nav className="flex flex-col gap-2">
-          <button onClick={() => setActiveTab('overview')} className={`text-left px-4 py-3 rounded-xl font-medium transition-colors ${activeTab === 'overview' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-textMuted hover:bg-white/5 hover:text-white'}`}>Overview</button>
-          <button onClick={() => setActiveTab('products')} className={`text-left px-4 py-3 rounded-xl font-medium transition-colors ${activeTab === 'products' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-textMuted hover:bg-white/5 hover:text-white'}`}>Products</button>
-          <button onClick={() => setActiveTab('orders')} className={`text-left px-4 py-3 rounded-xl font-medium transition-colors ${activeTab === 'orders' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-textMuted hover:bg-white/5 hover:text-white'}`}>Global Orders</button>
-          <button onClick={() => setActiveTab('users')} className={`text-left px-4 py-3 rounded-xl font-medium transition-colors ${activeTab === 'users' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-textMuted hover:bg-white/5 hover:text-white'}`}>Users</button>
+        <nav className="flex flex-col gap-3 relative z-10 mt-8">
+          <button onClick={() => setActiveTab('overview')} className={`text-left px-4 py-3.5 rounded-xl font-bold uppercase text-xs tracking-wider transition-all ${activeTab === 'overview' ? 'bg-primary/10 text-primary border border-primary/40 shadow-[inset_0_0_15px_rgba(57,255,20,0.1)]' : 'text-textMuted hover:bg-white/5 hover:text-white'}`}>Overview</button>
+          <button onClick={() => setActiveTab('products')} className={`text-left px-4 py-3.5 rounded-xl font-bold uppercase text-xs tracking-wider transition-all ${activeTab === 'products' ? 'bg-primary/10 text-primary border border-primary/40 shadow-[inset_0_0_15px_rgba(57,255,20,0.1)]' : 'text-textMuted hover:bg-white/5 hover:text-white'}`}>Products</button>
+          <button onClick={() => setActiveTab('orders')} className={`text-left px-4 py-3.5 rounded-xl font-bold uppercase text-xs tracking-wider transition-all ${activeTab === 'orders' ? 'bg-primary/10 text-primary border border-primary/40 shadow-[inset_0_0_15px_rgba(57,255,20,0.1)]' : 'text-textMuted hover:bg-white/5 hover:text-white'}`}>Global Orders</button>
+          <button onClick={() => setActiveTab('users')} className={`text-left px-4 py-3.5 rounded-xl font-bold uppercase text-xs tracking-wider transition-all ${activeTab === 'users' ? 'bg-primary/10 text-primary border border-primary/40 shadow-[inset_0_0_15px_rgba(57,255,20,0.1)]' : 'text-textMuted hover:bg-white/5 hover:text-white'}`}>Users</button>
         </nav>
         
-        <div className="mt-auto">
-          <button onClick={logout} className="w-full py-3 rounded-lg border border-red-500/20 text-red-400 hover:bg-red-500/10 font-bold transition-colors">
-            Log out
+        <div className="mt-auto relative z-10">
+          <button onClick={logout} className="w-full py-3.5 rounded-xl border border-secondary/40 text-secondary hover:bg-secondary/10 hover:shadow-[0_0_15px_rgba(255,0,255,0.4)] font-black text-xs uppercase tracking-widest transition-all">
+            System Logout
           </button>
         </div>
       </div>
 
       {/* Main Content */}
       <div className="flex-1 overflow-y-auto w-full">
-        <header className="h-20 bg-surface/50 backdrop-blur border-b border-slate-800 flex items-center justify-between px-8 sticky top-0 z-10">
-           <h2 className="text-xl font-semibold">Dashboard Overview</h2>
+        <header className="h-20 bg-surface/80 backdrop-blur-xl border-b border-white/5 flex items-center justify-between px-8 sticky top-0 z-20">
+           <h2 className="text-xl font-black italic tracking-wide text-white">SYSTEM <span className="text-primary">OVERVIEW</span></h2>
            <div className="flex items-center gap-4">
-              <span className="text-sm font-medium bg-slate-800 py-2 px-4 rounded-full border border-slate-700">Admin: {user?.name || 'Authorized'}</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-[#39ff14] border border-[#39ff14]/30 bg-[#39ff14]/10 py-2 px-4 rounded-full shadow-[0_0_10px_rgba(57,255,20,0.2)]">
+                 ROOT: {user?.name || 'Authorized'}
+              </span>
            </div>
         </header>
         
@@ -163,19 +166,22 @@ const Dashboard = () => {
           {/* Stats Grid */}
           {activeTab === 'overview' && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-             <div className="card p-6 border-l-4 border-l-primary">
-                <p className="text-textMuted text-sm font-medium mb-1">Total Sales</p>
-                <h3 className="text-3xl font-bold text-white">
+             <div className="bg-surface border-t-2 border-t-primary rounded-xl p-6 shadow-2xl relative overflow-hidden group hover:border-t-[4px] transition-all">
+                <div className="absolute -right-6 -top-6 w-24 h-24 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all duration-500"/>
+                <p className="text-textMuted text-xs font-black uppercase tracking-widest mb-2">Total Gross Volume</p>
+                <h3 className="text-4xl font-black text-white tracking-tighter">
                   {loading ? '...' : formatINR(totalSales)}
                 </h3>
              </div>
-             <div className="card p-6 border-l-4 border-l-blue-500">
-                <p className="text-textMuted text-sm font-medium mb-1">Active Orders</p>
-                <h3 className="text-3xl font-bold text-white">{loading ? '...' : activeOrders}</h3>
+             <div className="bg-surface border-t-2 border-t-[#00ffcc] rounded-xl p-6 shadow-2xl relative overflow-hidden group hover:border-t-[4px] transition-all">
+                <div className="absolute -right-6 -top-6 w-24 h-24 bg-[#00ffcc]/10 rounded-full blur-2xl group-hover:bg-[#00ffcc]/20 transition-all duration-500"/>
+                <p className="text-textMuted text-xs font-black uppercase tracking-widest mb-2">Active Shipments</p>
+                <h3 className="text-4xl font-black text-white tracking-tighter">{loading ? '...' : activeOrders}</h3>
              </div>
-             <div className="card p-6 border-l-4 border-l-purple-500">
-                <p className="text-textMuted text-sm font-medium mb-1">Products / Users</p>
-                <h3 className="text-3xl font-bold text-white">
+             <div className="bg-surface border-t-2 border-t-secondary rounded-xl p-6 shadow-2xl relative overflow-hidden group hover:border-t-[4px] transition-all">
+                <div className="absolute -right-6 -top-6 w-24 h-24 bg-secondary/10 rounded-full blur-2xl group-hover:bg-secondary/20 transition-all duration-500"/>
+                <p className="text-textMuted text-xs font-black uppercase tracking-widest mb-2">Products / Users</p>
+                <h3 className="text-4xl font-black text-white tracking-tighter">
                   {loading ? '...' : `${products.length} / ${users.length}`}
                 </h3>
              </div>

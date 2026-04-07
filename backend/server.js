@@ -3,13 +3,29 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
+import mongoose from 'mongoose';
 import connectDB from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
+import User from './models/User.js';
+import Product from './models/Product.js';
+import Order from './models/Order.js';
 
 dotenv.config();
 connectDB();
+
+mongoose.connection.on('connected', () => {
+  console.log('MongoDB state: connected');
+});
+
+mongoose.connection.on('disconnected', () => {
+  console.warn('MongoDB state: disconnected');
+});
+
+mongoose.connection.on('error', (err) => {
+  console.error(`MongoDB state error: ${err.message}`);
+});
 
 const app = express();
 
@@ -31,6 +47,42 @@ app.use('/api/orders', orderRoutes);
 // Example basic route
 app.get('/', (req, res) => {
   res.send('API is running...');
+});
+
+// DB health + counts check to confirm MongoDB-backed data fetch.
+app.get('/api/health/db', async (req, res) => {
+  const isConnected = mongoose.connection.readyState === 1;
+
+  if (!isConnected) {
+    return res.status(503).json({
+      mongoConnected: false,
+      databaseName: mongoose.connection.name || null,
+      message: 'MongoDB is disconnected',
+    });
+  }
+
+  try {
+    const [users, products, orders] = await Promise.all([
+      User.countDocuments({}),
+      Product.countDocuments({}),
+      Order.countDocuments({}),
+    ]);
+
+    res.json({
+      mongoConnected: true,
+      databaseName: mongoose.connection.name,
+      counts: {
+        users,
+        products,
+        orders,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      mongoConnected: true,
+      message: error.message,
+    });
+  }
 });
 
 // Socket.io connection logic
