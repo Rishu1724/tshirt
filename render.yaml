@@ -5,12 +5,12 @@ services:
     rootDir: backend
     buildCommand: npm ci
     startCommand: npm start
-    healthCheckPath: /
+    healthCheckPath: /api/health/db
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
-        sync: false
+        value: "5001"
       - key: MONGO_URI
         sync: false
       - key: JWT_SECRET
@@ -21,3 +21,5 @@ services:
         sync: false
       - key: CLOUDINARY_API_SECRET
         sync: false
+      - key: CORS_ORIGIN
+        value: "https://tshirt-user-store.netlify.app,https://tshirt-admin-panel.netlify.app,https://tshirt-warehouse-panel-2026.netlify.app"
